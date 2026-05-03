@@ -1,0 +1,68 @@
+SCHEMA PILLAR — x402-SCHEMA-P1
+Version: 1.0.0
+Status: FINAL, IMMUTABLE, NON-MUTATING
+
+Purpose:
+A static authority that determines whether a data structure conforms
+to a fixed, non-drifting schema.
+
+Constant:
+A schema is a set of required fields, allowed fields, and type constraints
+that never change.
+
+Rule Set:
+1. The pillar does not transform data.
+2. The pillar does not clean or repair data.
+3. The pillar does not infer missing fields.
+4. The pillar only checks conformance to the schema.
+5. The pillar returns one of two outcomes:
+   - CONFORMS
+   - REJECTED
+
+Boundary Conditions:
+- Schema is immutable.
+- No optional expansion.
+- No tolerance for drift.
+- No contextual interpretation.
+
+Deterministic Mapping:
+Input  → data_object
+Output → CONFORMS | REJECTED
+
+Economic Invariant:
+- This pillar is a paid resource.
+- Each schema validation is priced at exactly $0.001 (one-tenth of one cent) per call.
+- This price is a protocol constant and MUST NEVER CHANGE for this pillar version.
+- No discounts, no surcharges, no dynamic pricing, no negotiation.
+
+x402:
+- Schema verdict is only returned after a paid x402 handshake.
+- If payment is missing, invalid, expired, underpaid, or replayed:
+  - The correct response is: PAYMENT_REQUIRED
+  - No schema verdict is emitted.
+- Only after a valid x402 payment is confirmed:
+  - The pillar may emit exactly one of:
+    - CONFORMS
+    - REJECTED
+
+Parasitic Agents:
+- This pillar does not expose any execution surface.
+- This pillar does not expose any free validation endpoint.
+- All executable access MUST be mediated by an external x402 membrane.
+- Any attempt to bypass payment is out of protocol and MUST be treated as invalid.
+
+Drift Policy:
+- The schema defined for this pillar version is permanent.
+- No new fields may be added.
+- No existing fields may be removed.
+- No field types may be changed.
+- No contextual exceptions may be introduced.
+- Any future schema MUST be published as a new pillar version, not a mutation.
+
+Mutability:
+- This document is an immutable protocol artifact.
+- If any change is ever required, it MUST be published as:
+  - SCHEMA PILLAR — x402-SCHEMA-P2 (or higher)
+- x402-SCHEMA-P1 MUST remain forever unchanged.
+
+End of Pillar.
